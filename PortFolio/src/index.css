@@ -214,10 +214,6 @@
     text-align: center;
   }
   
-  #rp-axelor {
-    opacity: 0;
-  }
-  
   @media screen and (min-width: 768px) {
     .hero-content {
       display: grid;
