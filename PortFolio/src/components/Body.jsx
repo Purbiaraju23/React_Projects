@@ -50,7 +50,7 @@ function Body() {
   <section className="pre-projects">
     <div className="u-wrapper">
       <div className="pre-projects-content">
-        <p>Visit My Github Profile</p>
+        <p>Email Me For Any Queries</p>
         
         <img src="images/icons/arrow-down.svg" className="p-5" alt=""/>
       </div>
