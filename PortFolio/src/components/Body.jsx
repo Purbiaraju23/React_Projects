@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navlink from './Navlink';
 
 function Body() {
 
+  const [formData, setFormData] = useState({
+    name:'',
+    email:'',
+    message:''
+  })
  
+  const handleChangeInput = (e)=> {
+    const {name, value} = e.target;
+    setFormData((prevData)=>({...prevData,[name]:value}))
+  }
+  const [formSubmitted,setFormSubmitted] = useState(false)
+
+  useEffect(()=>{
+    if(formSubmitted){
+      console.log('Form Submitted:',formData)
+      setFormData({name:'',email:'',message:''})
+      setFormSubmitted(false)
+    }
+  },[formData,formSubmitted])
+
+  const handleFormSubmit = (e)=>{
+    e.preventDefault()
+    setFormSubmitted(true)
+  }
 
   return (
     <>
@@ -80,14 +103,14 @@ function Body() {
 
         <form id="form" action="" className="form">
           <h3 className="tag"><span>MESSAGE ME</span></h3>
-          <label for="name"> Enter Name<span> *</span> </label>
-          <input name="name" required type="text" id="name" placeholder="John"/>
-          <label for="email">Enter Email <span>*</span></label>
-          <input name="email" type="text" id="email" required placeholder="john@gmail.com"/>
-          <label for="message">Message</label>
-          <textarea id="message" name="message" cols="30" rows="10"></textarea>
+          <label htmlFor="name"> Enter Name<span> *</span> </label>
+          <input name="name" required type="text" id="name" placeholder="John" onChange={handleChangeInput}/>
+          <label htmlFor="email">Enter Email <span>*</span></label>
+          <input name="email" type="text" id="email" required placeholder="john@gmail.com" onChange={handleChangeInput}/>
+          <label htmlFor="message">Message</label>
+          <textarea id="message" name="message" cols="30" rows="10" onChange={handleChangeInput}></textarea>
           <button type="submit" className="btn primary full"
-          onClick={(e)=>e.preventDefault}
+          onClick={handleFormSubmit}
           >SUBMIT</button>
         </form>
         <a href="mailto:r.purabia@axelor.com" id="rp-axelor"></a>
