@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+    <NavBar/>
       <Header/>
       <Body />
       <Footer />
