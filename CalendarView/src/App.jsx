@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'material-icons/iconfont/material-icons.css';
 import './index.css'
 
 const App = () => {
@@ -59,8 +60,8 @@ const App = () => {
          <header>
             <p className="current-date">{`${monthNames[currMonth]} ${currYear}`}</p>
             <div className="icons">
-                <span id="prev" className="material-symbols-rounded" onClick={() => handleIconClick(true)}>{'<'}</span>
-                <span id="next" className="material-symbols-rounded" onClick={() => handleIconClick(false)}>{'>'}</span>
+                <span id="prev" className="material-symbols-rounded" onClick={() => handleIconClick(true)}><i className="material-icons">chevron_left</i></span>
+                <span id="next" className="material-symbols-rounded" onClick={() => handleIconClick(false)}><i className="material-icons">chevron_right</i></span>
             </div>
          </header>
          <div className="calendar">
