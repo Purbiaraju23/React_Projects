@@ -4,7 +4,7 @@
   justify-content: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 2.0;
-  background-image: url('https://images.pexels.com/photos/360912/pexels-photo-360912.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-image: url('./assets/images/appBackground.avif') ;
   background-size:cover;
   background-position: center;
   flex-direction: column;

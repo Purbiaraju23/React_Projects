@@ -1,127 +1,160 @@
-import { useState } from 'react';
-import './index.css'
+import { useState } from "react";
+import FormItem from "./components/FormItem";
+import FormSelect from "./components/FormSelect";
+import FormRadio from "./components/FormRadio";
+import FormCheckBox from "./FormCheckBox";
+import Button from "./components/Button";
+import "./index.css";
+
 function App() {
+  const [formState, setFormState] = useState({
+    username: "",
+    password: "",
+    city: "",
+  });
 
-  const [password,setPassword] = useState('')
-  const [username,setUsername] = useState('')
+  const [selectedWebserver, setSelectedWebserver] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedServices, setSelectedServices] = useState([]);
 
+  const webserverOptions = [
+    { value: "", label: "-- Choose a Server --" },
+    { value: "apache", label: "Apache HTTP Server" },
+    { value: "nginx", label: "Nginx" },
+    { value: "IIS", label: "Microsoft Internet Information Services" },
+    { value: "litespeed", label: "LiteSpeed Web Server" },
+    { value: "caddy", label: "Caddy" },
+  ];
+
+  const roles = ["Admin", "Engineer", "Manager", "Intern"];
+  const services = ["Mail", "Payroll", "Self-service"];
 
   const validatePassword = () => {
     const validPassword = /^(?=.*\d).{8,}$/;
-    
-    if(!validPassword.test(password))
-    {
-        alert("Password must have 8 characters and at least 1 digit !!");
-    }
-  }
 
+    if (!validPassword.test(formState.password)) {
+      alert("Password must have 8 characters and at least 1 digit!!");
+    }
+  };
 
   const handleLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if(username === "Raju_Purbia")
-    {
-      alert("Login SuccessFull !!")
+    if (formState.username === "Raju_Purbia") {
+      alert("Login SuccessFull !!");
+    } else {
+      alert("Invalid username or password! Please Try Again 😀");
     }
-    else
-    {
-      alert("Invlaid username or password! Please Try Again 😀")
-    }
-  }
+  };
 
+  const handleFormChange = (field, value) => {
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      [field]: value,
+    }));
+  };
 
   return (
     <>
       <div className="main">
-      <form action="#" id="myform">
-        <div className="items">
-          <label htmlFor="username" className="form-label">Username:</label>
-          <input 
-          onChange={(e)=> setUsername(e.target.value)}
-          type="username" className="form-control" id="username" placeholder="Enter username" name="username" required />
-        </div>
-
-        <div className="items">
-          <label htmlFor="password" className="form-label">Password:</label>
-          <input onChange={(e)=> setPassword(e.target.value)} 
-          type="password" className="form-control" id="password" placeholder="Enter password" name="password" required />
-        </div>
-
-        <div className="items">
-          <label htmlFor="city" className="form-label">City of employment:</label>
-          <input type="city" className="form-control" id="city" placeholder="Enter city" name="city" />
-        </div>
-
-        <div className="items">
-          <label htmlFor="webserver">Webserver</label>
-          <select id="webserver" name="webserver">
-            <option value="">-- Choose a Server --</option>
-            <option value="apache">Apache HTTP Server</option>
-            <option value="nginx">Nginx</option>
-            <option value="IIS">Microsoft Internet Information Services</option>
-            <option value="litespeed">LiteSpeed Web Server</option>
-            <option value="caddy">Caddy</option>
-          </select>
-        </div>
-
-        <div className="items">
-          <label htmlFor="role">Please Specify your role:</label>
-
-          <div className="radio-group">
-            <span>
-              <input type="radio" id="admin" name="your-role" value="admin" />
-              <label htmlFor="admin">Admin</label>
-            </span>
-
-            <span>
-              <input type="radio" id="Engineer" name="your-role" value="Engineer" />
-              <label htmlFor="Engineer">Engineer</label>
-            </span>
-
-            <span>
-              <input type="radio" id="Manager" name="your-role" value="Manager" />
-              <label htmlFor="Manager">Manager</label>
-            </span>
-
-            <span>
-              <input type="radio" id="Intern" name="your-role" value="Intern" />
-              <label htmlFor="Intern">Intern</label>
-            </span>
-          </div>
-        </div>
-
-        <div className="items">
-          <label htmlFor="signin">Single Sign-on to the following:</label>
-
-          <div className="checkbox-group">
-            <span>
-              <input type="checkbox" id="Mail" name="sign-on" value="Mail" />
-              <label htmlFor="Mail">Mail</label>
-            </span>
-
-            <span>
-              <input type="checkbox" id="Payroll" name="sign-on" value="Payroll" />
-              <label htmlFor="Payroll">Payroll</label>
-            </span>
-
-            <span>
-              <input type="checkbox" id="Self-service" name="sign-on" value="Self-service" />
-              <label htmlFor="Self-service">Self-service</label>
-            </span>
-          </div>
-        </div>
-        <br />
-
-        <div className='button'>
-          <input type="submit" value="Login" id='loginButton'
-          onClick={validatePassword && handleLogin}/>
-          <input type="reset" value="Reset" id='resetButton'
+        <form action="#" id="myform">
+          <FormItem
+            Type={"text"}
+            id={"username"}
+            name={"username"}
+            label="UserName"
+            onChange={(e) => handleFormChange("username", e.target.value)}
+            placeholder="Enter username"
+            value={formState.username}
           />
-        </div>
-      </form>
-    </div>
+
+          <FormItem
+            Type={"password"}
+            id={"password"}
+            name={"password"}
+            label="Password"
+            onChange={(e) => handleFormChange("password", e.target.value)}
+            placeholder="Enter password"
+            value={formState.password}
+          />
+
+          <FormItem
+            Type={"text"}
+            id={"city"}
+            name={"city"}
+            label="City of employment"
+            placeholder="Enter city"
+            onChange={(e) => handleFormChange("city", e.target.value)}
+            value={formState.city}
+          />
+
+          <FormSelect
+            label={"WebServer"}
+            name={"webserver"}
+            id={"webserver"}
+            options={webserverOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+            onChange={(e) => setSelectedWebserver(e.target.value)}
+          />
+
+          <FormRadio
+            mainLabel={"Please Specify your Role"}
+            radioItems={roles.map((role) => (
+              <span key={role}>
+                <input
+                  type="radio"
+                  id={role.toLowerCase()}
+                  name="your-role"
+                  value={role}
+                  onChange={() => setSelectedRole(role)}
+                />
+                <label htmlFor={role.toLowerCase()}>{role}</label>
+              </span>
+            ))}
+          />
+
+          <FormCheckBox
+            label="Single Sign-on to the following:"
+            checkItems={services.map((service) => (
+              <span key={service}>
+                <input
+                  type="checkbox"
+                  id={service}
+                  value={service}
+                  onChange={() => {
+                    const updatedServices = selectedServices.includes(service)
+                      ? selectedServices.filter((item) => item !== service)
+                      : [...selectedServices, service];
+
+                    setSelectedServices(updatedServices);
+                  }}
+                />
+                <label htmlFor={service}>{service}</label>
+              </span>
+            ))}
+          />
+          <br />
+          <br />
+
+          <div className="button">
+            <Button
+              type="submit"
+              value="Submit"
+              id="loginButton"
+              onClick={() => {
+                validatePassword();
+                handleLogin();
+              }}
+            />
+            <Button type="reset" value="Reset" id="resetButton" />
+          </div>
+        </form>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
