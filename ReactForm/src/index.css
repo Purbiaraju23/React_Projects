@@ -2,13 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 2.0;
-  background-image: url('./assets/images/appBackground.avif') ;
-  background-size:cover;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 2;
+  background-image: url("./assets/images/appBackground.avif");
+  background-size: cover;
   background-position: center;
   flex-direction: column;
-  
 }
 
 .main {
@@ -22,7 +21,6 @@
   height: 600px;
 }
 
-
 form {
   display: flex;
   backdrop-filter: blur(10px);
@@ -35,7 +33,7 @@ form .items {
   width: 600px;
   display: flex;
   align-items: center;
-  justify-content:flex-start;
+  justify-content: flex-start;
   gap: 50px;
   padding-bottom: 20px;
 }
@@ -49,16 +47,14 @@ form .items {
 .items > input {
   height: 25px;
   border-radius: 10px;
-  width:300px;
+  width: 300px;
 }
 
-.items > select{
+.items > select {
   border-radius: 10px;
   width: 51%;
   height: auto;
-  
 }
-  
 
 .items .radio-group {
   display: flex;
@@ -83,7 +79,8 @@ form .items {
   gap: 10px;
 }
 
-#loginButton, #resetButton {
+#loginButton,
+#resetButton {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -103,13 +100,10 @@ form .items {
   margin-right: 10px;
 }
 
-#loginButton{
+#loginButton {
   background-color: #625b78;
 }
 
 #resetButton {
   background-color: #35af28;
 }
-
-
-
