@@ -96,11 +96,11 @@
     vertical-align: middle;
   }
   
-  .hero {
+  .user {
     margin-block-end: 80px;
   }
   
-  .hero-content img{
+  .user-content img{
     display: block;
     margin: 0 auto;
     border-radius: 50px;
@@ -215,7 +215,7 @@
   }
   
   @media screen and (min-width: 768px) {
-    .hero-content {
+    .user-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-areas: "description image";
@@ -224,17 +224,17 @@
       border-radius: 20px;
     }
   
-    .hero-description {
+    .user-description {
       font-size: x-large;
       grid-area: description;
     }
   
-    .hero-image {
+    .user-image {
       
       grid-area: image;
     }
 
-    .hero-image img {
+    .user-image img {
       inline-size: 500px;
       margin-top: -50px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

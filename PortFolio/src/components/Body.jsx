@@ -17,7 +17,7 @@ function Body() {
 
   useEffect(()=>{
     if(formSubmitted){
-      console.log('Form Submitted:',formData)
+      alert('Form Submitted:',formData)
       setFormData({name:'',email:'',message:''})
       setFormSubmitted(false)
     }
@@ -30,13 +30,13 @@ function Body() {
 
   return (
     <>
-    <section className="hero">
+    <section className="user">
     <div className="u-wrapper">
-      <div className="hero-content" >
-        <div className="hero-image"  >
+      <div className="user-content" >
+        <div className="user-image"  >
           <img src="images/raju.png" alt="" height='600px'/>
         </div>
-        <div className="hero-description">
+        <div className="user-description">
           <h1 className="h1">
             <span className="h3">Hello It's Me</span>
             <span>Raju Purbia</span>
