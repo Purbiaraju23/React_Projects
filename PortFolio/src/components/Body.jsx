@@ -17,7 +17,7 @@ function Body() {
 
   useEffect(()=>{
     if(formSubmitted){
-      alert('Form Submitted:',formData)
+      alert('Form Submitted:',formData.name)
       setFormData({name:'',email:'',message:''})
       setFormSubmitted(false)
     }
