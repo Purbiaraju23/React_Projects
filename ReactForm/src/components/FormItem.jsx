@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const FormItem = ({ label, onChange, placeholder, value, Type, id, name }) => {
   return (
@@ -18,4 +18,4 @@ const FormItem = ({ label, onChange, placeholder, value, Type, id, name }) => {
   );
 };
 
-export default FormItem
+export default FormItem;
