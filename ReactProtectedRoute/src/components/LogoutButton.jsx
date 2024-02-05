@@ -7,6 +7,7 @@ const LogoutButton = () => {
   const { isAuth, setUser } = useContext(AuthContext);
 
   const handleLogout = () => {
+    localStorage.setItem("auth", "false");
     setUser(null);
     isAuth(false);
   };
