@@ -21,7 +21,6 @@ function Cart({ cartItems }) {
         </li>
         ))}
 
-  {/* "Net Total" item without index */}
   <li className="d-flex justify-content-between align-items-center list-group-item">
     <div className="ms-2 me-auto">
       <div className="fw-bold">Net Total</div>
