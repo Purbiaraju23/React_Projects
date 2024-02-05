@@ -1,14 +1,12 @@
-import React from 'react'
+import React from "react";
 
-function FormRadio({mainLabel,radioItems}) {
+function FormRadio({ mainLabel, radioItems }) {
   return (
     <div className="items">
-          <label >{mainLabel}:</label>
-          <div className="radio-group">
-            {radioItems}
-          </div>
-        </div>
-  )
+      <label>{mainLabel}:</label>
+      <div className="radio-group">{radioItems}</div>
+    </div>
+  );
 }
 
-export default FormRadio
+export default FormRadio;
