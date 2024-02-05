@@ -71,17 +71,8 @@ function Body() {
                   Press below Button to redirect to my Github Profile
                 </p>
                 <div className="project-cta">
-                  <button
-                    className="btn secondary full hover:cursor-pointer"
-                  >
-                    <a
-                      href="https://github.com/rp-axelor"
-                      style={{
-                        textDecoration: "none",
-                        color: "black",
-                        cursor: "pointer",
-                      }}
-                    >
+                  <button className="btn secondary full hover:cursor-pointer">
+                    <a href="https://github.com/rp-axelor">
                       <i>
                         <img src="images/icons/github.svg" alt="" />
                       </i>

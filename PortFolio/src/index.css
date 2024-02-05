@@ -85,6 +85,11 @@
   position: relative;
   bottom: 1px;
 }
+.btn a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
 .btn i {
   display: inline-block;
 }
@@ -106,7 +111,7 @@
 }
 
 .pre-projects-content {
-  text-align: left;
+  text-align: center;
 }
 
 .pre-projects-content p {
@@ -124,11 +129,7 @@
   display: grid;
   grid-template-areas: "image" "description";
 }
-.project-image {
-  grid-area: image;
-  text-align: center;
-  margin-block-end: 1.5em;
-}
+
 .project-description {
   cursor: pointer;
   grid-area: description;
