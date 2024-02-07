@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import LogoutButton from "./components/LogoutButton";
 import AuthContext from "./context/AuthContext";
@@ -17,6 +17,13 @@ import {
 
 function App() {
   const { auth } = useContext(AuthContext);
+  const location = useLocation();
+
+  const showLoginForm =
+    location.pathname !== "/home" &&
+    location.pathname !== "/cards" &&
+    location.pathname !== "/account";
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
@@ -62,11 +69,15 @@ function App() {
           </Button>
         </Toolbar>
       </AppBar>
+
+      {showLoginForm && (
+        <Container component="div" sx={{ mt: 2 }}>
+          {auth ? null : <LoginForm />}
+        </Container>
+      )}
+
       <Container component="main" maxWidth="md" sx={{ mt: 2 }}>
         <Outlet />
-      </Container>
-      <Container component="div" sx={{ mt: 2 }}>
-        {auth ? null : <LoginForm />}
       </Container>
     </Box>
   );
