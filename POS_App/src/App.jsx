@@ -5,9 +5,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { groceryItems } from "./productData.json";
-import FilterDropdown from "./components/FilterDropdown";
 import { TypeContextProvider } from "./contexts/TypeContext";
-import SortDropDown from "./components/SortDropDown";
+import OptionDropdown from "./components/OptionDropdown";
 
 function App() {
   const [productName, setProductName] = useState("");
@@ -73,10 +72,10 @@ function App() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-4" style={{ padding: "10px" }}>
-              <FilterDropdown onChange={setType} />
+              <OptionDropdown onChange={setType} isSorting={false} />
             </div>
             <div className="col-md-4" style={{ padding: "10px" }}>
-              <SortDropDown onChange={handleSortChange} />
+              <OptionDropdown onChange={handleSortChange} isSorting={true} />
             </div>
             <div className="col-md-8" style={{ padding: "10px" }}>
               <div className="row">
