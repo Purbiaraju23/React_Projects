@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import LogoutButton from "./components/LogoutButton";
 import AuthContext from "./context/AuthContext";
@@ -17,6 +17,14 @@ import {
 
 function App() {
   const { auth } = useContext(AuthContext);
+  const location = useLocation();
+
+  // Check if the user is on the Home or Cards page
+  const showLoginForm =
+    location.pathname !== "/home" &&
+    location.pathname !== "/cards" &&
+    location.pathname !== "/account";
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CssBaseline />
@@ -62,11 +70,16 @@ function App() {
           </Button>
         </Toolbar>
       </AppBar>
+
+      {/* Only render the login form if not on the Home or Cards page */}
+      {showLoginForm && (
+        <Container component="div" sx={{ mt: 2 }}>
+          {auth ? null : <LoginForm />}
+        </Container>
+      )}
+
       <Container component="main" maxWidth="md" sx={{ mt: 2 }}>
         <Outlet />
-      </Container>
-      <Container component="div" sx={{ mt: 2 }}>
-        {auth ? null : <LoginForm />}
       </Container>
     </Box>
   );
