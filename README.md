@@ -9,7 +9,8 @@ To run any project locally or contribute, follow these steps:
 ### Running a Project
 
 ```bash
-git clone https://github.com/rp-axelor/MyReactProjects.git
+git clone https://github.com/rp-axelor/React_Projects.git
 cd react-projects-collection/project-name
 npm install
 npm run dev
+```
