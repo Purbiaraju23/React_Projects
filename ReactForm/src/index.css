@@ -107,3 +107,28 @@ form .items {
 #resetButton {
   background-color: #35af28;
 }
+
+.login-error,
+.password-error {
+  color: red;
+}
+
+.form-container {
+  position: relative;
+}
+
+.password-error,
+.login-error {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  color: red;
+  font-size: 1em;
+  margin-left: 250px;
+}
+
+.error-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FormItem from "./components/FormItem";
 import FormSelect from "./components/FormSelect";
 import FormRadio from "./components/FormRadio";
@@ -16,6 +16,8 @@ function App() {
   const [selectedWebserver, setSelectedWebserver] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
+  const [error, setError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const webserverOptions = [
     { value: "", label: "-- Choose a Server --" },
@@ -28,22 +30,28 @@ function App() {
 
   const roles = ["Admin", "Engineer", "Manager", "Intern"];
   const services = ["Mail", "Payroll", "Self-service"];
+  const validPassword = /^(?=.*\d).{8,}$/;
 
   const validatePassword = () => {
-    const validPassword = /^(?=.*\d).{8,}$/;
-
     if (!validPassword.test(formState.password)) {
-      alert("Password must have 8 characters and at least 1 digit!!");
+      setError("Password must have 8 characters and at least 1 digit!!");
+      return false;
+    } else {
+      setError("");
+      return true;
     }
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (formState.username === "Raju_Purbia") {
-      alert("Login SuccessFull !!");
+    if (formState.username === "Raju-Purbia") {
+      setLoginError("");
+      if (validatePassword()) {
+        alert("Login SuccessFull !!");
+      }
     } else {
-      alert("Invalid username or password! Please Try Again 😀");
+      setLoginError("**Invalid username ! Please Try Again ");
     }
   };
 
@@ -54,29 +62,52 @@ function App() {
     }));
   };
 
+  const handleReset = () => {
+    setFormState({});
+    setError("");
+    setLoginError("");
+  };
+
   return (
     <>
       <div className="main">
         <form action="#" id="myform">
-          <FormItem
-            Type={"text"}
-            id={"username"}
-            name={"username"}
-            label="UserName"
-            onChange={(e) => handleFormChange("username", e.target.value)}
-            placeholder="Enter username"
-            value={formState.username}
-          />
-
-          <FormItem
-            Type={"password"}
-            id={"password"}
-            name={"password"}
-            label="Password"
-            onChange={(e) => handleFormChange("password", e.target.value)}
-            placeholder="Enter password"
-            value={formState.password}
-          />
+          <div className="form-container">
+            <FormItem
+              Type={"text"}
+              id={"username"}
+              name={"username"}
+              label="UserName"
+              onChange={(e) => {
+                handleFormChange("username", e.target.value);
+                setLoginError("");
+              }}
+              placeholder="Enter username"
+              value={formState.username}
+            />
+            {loginError !== "" && (
+              <span className="login-error">{loginError}</span>
+            )}
+          </div>
+          <div className="form-container">
+            <FormItem
+              Type={"password"}
+              id={"password"}
+              name={"password"}
+              label="Password"
+              onChange={(e) => {
+                handleFormChange("password", e.target.value);
+                validatePassword();
+                setError("");
+                setLoginError("");
+              }}
+              placeholder="Enter password"
+              value={formState.password}
+            />
+            <div className="error-group">
+              {error !== "" && <p className="password-error">{error}</p>}
+            </div>
+          </div>
 
           <FormItem
             Type={"text"}
@@ -144,12 +175,17 @@ function App() {
               type="submit"
               value="Submit"
               id="loginButton"
-              onClick={() => {
+              onClick={(e) => {
+                handleLogin(e);
                 validatePassword();
-                handleLogin();
               }}
             />
-            <Button type="reset" value="Reset" id="resetButton" />
+            <Button
+              type="reset"
+              value="Reset"
+              id="resetButton"
+              onClick={() => handleReset()}
+            />
           </div>
         </form>
       </div>
