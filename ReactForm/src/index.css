@@ -4,7 +4,7 @@
   justify-content: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 2;
-  background-image: url("./assets/images/appBackground.avif");
+  background-color: black;
   background-size: cover;
   background-position: center;
   flex-direction: column;
@@ -109,26 +109,33 @@ form .items {
 }
 
 .login-error,
-.password-error {
+.password-error,
+.username-error {
   color: red;
 }
 
 .form-container {
   position: relative;
+  margin-bottom: 15px;
 }
 
 .password-error,
-.login-error {
+.login-error,
+.username-error {
   position: absolute;
   bottom: -2px;
   left: 0;
   color: red;
-  font-size: 1em;
+  font-size: 0.8em;
   margin-left: 250px;
 }
 
 .error-group {
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-top: 5px;
+}
+
+.button {
+  margin-top: 50px;
 }

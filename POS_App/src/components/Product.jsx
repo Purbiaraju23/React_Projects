@@ -1,24 +1,21 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../index.css";
 
 function Product({ product, onAddToCart }) {
+  const { name, id, imageUrl, price } = product;
+
   return (
-    <div className="card">
+    <div className="card" key={id}>
       <div className="card-body">
         <div className="row">
           <div className="col-md-12">
-            <div
-              style={{
-                backgroundImage: `url(${product.imageUrl})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-                height: "150px",
-              }}
-            ></div>
+            <img src={imageUrl} alt="Product Image" className="product-image" />
+
             <div className="col-md-12">
-              <div className="card-title h5">{product.name}</div>
+              <div className="card-title h5">{name}</div>
               <p className="card-text">
-                <b>₹ {product.price}</b>
+                <b>₹ {price}</b>
               </p>
               <button
                 type="button"
