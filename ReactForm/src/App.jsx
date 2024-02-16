@@ -1,10 +1,17 @@
-import { useRef, useState } from "react";
-import FormItem from "./components/FormItem";
-import FormSelect from "./components/FormSelect";
-import FormRadio from "./components/FormRadio";
-import FormCheckBox from "./FormCheckBox";
+import { useState } from "react";
+import Input from "./components/Input";
+import Select from "./components/Select";
+import Radio from "./components/Radio";
+import CheckBox from "./components/CheckBox";
 import Button from "./components/Button";
 import "./index.css";
+import {
+  VALIDPASSWORD,
+  VALID_USERNAME_REGEX,
+  WEBSERVER_OPTIONS,
+  ROLES,
+  SERVICES,
+} from "./Utils/Utility";
 
 function App() {
   const [formState, setFormState] = useState({
@@ -13,31 +20,38 @@ function App() {
     city: "",
   });
 
-  const [selectedWebserver, setSelectedWebserver] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
-  const [selectedServices, setSelectedServices] = useState([]);
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
 
-  const webserverOptions = [
-    { value: "", label: "-- Choose a Server --" },
-    { value: "apache", label: "Apache HTTP Server" },
-    { value: "nginx", label: "Nginx" },
-    { value: "IIS", label: "Microsoft Internet Information Services" },
-    { value: "litespeed", label: "LiteSpeed Web Server" },
-    { value: "caddy", label: "Caddy" },
-  ];
-
-  const roles = ["Admin", "Engineer", "Manager", "Intern"];
-  const services = ["Mail", "Payroll", "Self-service"];
-  const validPassword = /^(?=.*\d).{8,}$/;
+  const [errors, setErrors] = useState({
+    password: "",
+    username: "",
+    login: "",
+  });
 
   const validatePassword = () => {
-    if (!validPassword.test(formState.password)) {
-      setError("Password must have 8 characters and at least 1 digit!!");
+    if (!VALIDPASSWORD.test(formState.password)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "**Password must have 8 characters and at least 1 digit!!",
+      }));
       return false;
     } else {
-      setError("");
+      setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+      return true;
+    }
+  };
+
+  const validateUsername = () => {
+    if (!VALID_USERNAME_REGEX.test(formState.username)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        username: "**Invalid username format! Please try again.",
+      }));
+      return false;
+    } else {
+      setErrors((prevErrors) => ({ ...prevErrors, username: "" }));
       return true;
     }
   };
@@ -45,13 +59,14 @@ function App() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (formState.username === "Raju-Purbia") {
-      setLoginError("");
-      if (validatePassword()) {
-        alert("Login SuccessFull !!");
-      }
+    if (formState.username === "Raju_Purbia" && validatePassword()) {
+      setErrors((prevErrors) => ({ ...prevErrors, login: "" }));
+      alert("Login Successful!!");
     } else {
-      setLoginError("**Invalid username ! Please Try Again ");
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        login: "**Invalid username or password! Please try again.",
+      }));
     }
   };
 
@@ -60,56 +75,70 @@ function App() {
       ...prevFormState,
       [field]: value,
     }));
+    setErrors((prevErrors) => ({ ...prevErrors, [field]: "" }));
   };
 
   const handleReset = () => {
     setFormState({});
-    setError("");
-    setLoginError("");
+    setErrors({ password: "", username: "", login: "" });
   };
-
   return (
     <>
       <div className="main">
         <form action="#" id="myform">
           <div className="form-container">
-            <FormItem
+            <Input
               Type={"text"}
               id={"username"}
               name={"username"}
               label="UserName"
               onChange={(e) => {
                 handleFormChange("username", e.target.value);
-                setLoginError("");
+                setErrors((prev) => ({
+                  ...prev,
+                  username: "",
+                  login: "",
+                }));
               }}
+              onBlur={validateUsername}
               placeholder="Enter username"
               value={formState.username}
             />
-            {loginError !== "" && (
-              <span className="login-error">{loginError}</span>
+            {errors.username !== "" && (
+              <span className="username-error">{errors.username}</span>
+            )}
+            {errors.login !== "" && (
+              <span className="login-error">{errors.login}</span>
             )}
           </div>
+
           <div className="form-container">
-            <FormItem
+            <Input
               Type={"password"}
               id={"password"}
               name={"password"}
               label="Password"
               onChange={(e) => {
                 handleFormChange("password", e.target.value);
-                validatePassword();
-                setError("");
-                setLoginError("");
+                setErrors((prev) => ({
+                  ...prev,
+                  password: "",
+                  login: "",
+                }));
               }}
+              onBlur={validatePassword}
               placeholder="Enter password"
               value={formState.password}
             />
-            <div className="error-group">
-              {error !== "" && <p className="password-error">{error}</p>}
-            </div>
+            {errors.password !== "" && (
+              <span className="password-error">{errors.password}</span>
+            )}
+            {errors.login !== "" && (
+              <span className="login-error">{errors.login}</span>
+            )}
           </div>
 
-          <FormItem
+          <Input
             Type={"text"}
             id={"city"}
             name={"city"}
@@ -119,56 +148,19 @@ function App() {
             value={formState.city}
           />
 
-          <FormSelect
+          <Select
             label={"WebServer"}
             name={"webserver"}
             id={"webserver"}
-            options={webserverOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-            onChange={(e) => setSelectedWebserver(e.target.value)}
+            options={WEBSERVER_OPTIONS}
           />
 
-          <FormRadio
-            mainLabel={"Please Specify your Role"}
-            radioItems={roles.map((role) => (
-              <span key={role}>
-                <input
-                  type="radio"
-                  id={role.toLowerCase()}
-                  name="your-role"
-                  value={role}
-                  onChange={() => setSelectedRole(role)}
-                />
-                <label htmlFor={role.toLowerCase()}>{role}</label>
-              </span>
-            ))}
-          />
+          <Radio mainLabel={"Please Specify your Role"} radioItems={ROLES} />
 
-          <FormCheckBox
+          <CheckBox
             label="Single Sign-on to the following:"
-            checkItems={services.map((service) => (
-              <span key={service}>
-                <input
-                  type="checkbox"
-                  id={service}
-                  value={service}
-                  onChange={() => {
-                    const updatedServices = selectedServices.includes(service)
-                      ? selectedServices.filter((item) => item !== service)
-                      : [...selectedServices, service];
-
-                    setSelectedServices(updatedServices);
-                  }}
-                />
-                <label htmlFor={service}>{service}</label>
-              </span>
-            ))}
+            checkItems={SERVICES}
           />
-          <br />
-          <br />
 
           <div className="button">
             <Button
@@ -177,7 +169,11 @@ function App() {
               id="loginButton"
               onClick={(e) => {
                 handleLogin(e);
-                validatePassword();
+                setErrors((prev) => ({
+                  ...prev,
+                  username: "",
+                  password: "",
+                }));
               }}
             />
             <Button

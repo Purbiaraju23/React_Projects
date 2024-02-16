@@ -1,6 +1,15 @@
 import React from "react";
 
-const FormItem = ({ label, onChange, placeholder, value, Type, id, name }) => {
+const FormItem = ({
+  label,
+  onChange,
+  placeholder,
+  value,
+  Type,
+  id,
+  name,
+  onBlur,
+}) => {
   return (
     <div className="items">
       <label className="form-label">{label}:</label>
@@ -12,7 +21,7 @@ const FormItem = ({ label, onChange, placeholder, value, Type, id, name }) => {
         placeholder={placeholder}
         name={name}
         value={value}
-        required
+        onBlur={onBlur}
       />
     </div>
   );
