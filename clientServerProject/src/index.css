@@ -1,0 +1,31 @@
+:root {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(101, 26, 26, 1) 32%,
+    rgba(50, 64, 164, 1) 100%
+  );
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: center;
+}
+
+.contact-heading {
+  font-size: 50px;
+  color: white;
+}
+
+.user-logo {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.card-content,
+.axios-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
